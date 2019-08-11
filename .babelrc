@@ -1,0 +1,25 @@
+{
+	"presets": [
+		["@babel/preset-env", {
+			"modules": false,
+			"targets": {
+				"browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+			},
+			"useBuiltIns": "usage",
+			"corejs": 3,
+		}]
+	],
+	"plugins": [
+		// 与useBuiltIns不能同时使用
+		// ["@babel/plugin-transform-runtime", {
+		// 	"corejs": 3
+		// }],
+		"@vue/babel-plugin-transform-vue-jsx",
+		"@babel/plugin-syntax-dynamic-import",
+		["import", {
+			"libraryName": "ant-design-vue",
+			"libraryDirectory": "es",
+			"style": "css" // `style: true` 会加载 less 文件
+		}]
+	]
+}
