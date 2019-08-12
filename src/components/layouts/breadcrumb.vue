@@ -5,7 +5,8 @@
                 <span v-if="routes.indexOf(route) === routes.length - 1">
                     {{route.breadcrumbName}}
                 </span>
-                <router-link v-else :to="`${paths.join('/')}`">
+                <!-- <router-link v-else :to="`${paths.join('/')}`"> -->
+                <router-link v-else :to="`${route.path}`">
                     {{route.breadcrumbName}}
                 </router-link>
             </template>

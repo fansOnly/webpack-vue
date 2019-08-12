@@ -1,6 +1,7 @@
 <template>
   <div class>
-    <div class="page" :style="{height:getWindowHeight}">
+    <!-- <div class="page" :style="{height:getWindowHeight}"> -->
+    <div class="page">
       <Sider class="sidebar" v-model="collapsed">
         <div class="logo-wrap">
           <img class="logo" src="../../assets/images/antd.svg" alt='' />

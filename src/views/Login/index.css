@@ -1,0 +1,27 @@
+.login-page {
+    background: url('../../assets/images/loginbg.svg') 0 0 no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    width: 350px;
+    transform: translateY(-100px);
+}
+
+.login-form_item {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.login-form_rem {
+	display: flex;
+	justify-content: space-between;
+}
+
+.login-button {
+	width: 100%;
+}

@@ -1,36 +1,74 @@
 <template>
-  <div>
-    <img alt="Vue logo" src="../../assets/images/logo.png" style="width:100px;height:auto;" />
-    <p class="s1">this is page Home.....</p>
-    <router-link to="/admin">go to user</router-link>
-    <p>
-      <input type="text" v-model="value" placeholder="请输入数字" @input="type" />
-    </p>
-    <p>输入的值为：{{value2}}</p>
+  <div class="login-page" :style="{height:getWindowHeight}">
+    <Form class="login-form" :form="form" @submit="handleSubmit">
+      <FormItem class="login-form_item">
+        <Input v-decorator="['username', {rules: [{required: true, message: '请输入您的用户名'}]}]" placeholder="用户名：test" />
+        <Icon slot='prefix' type='user' style="color:rgba(0,0,0,0.25)" />
+      </FormItem>
+      <FormItem class="login-form_item">
+        <Input v-decorator="['password', {rules: [{required: true, message: '请输入您的密码'}]}]" type="password" placeholder="密码：123456" />
+        <Icon slot='prefix' type='lock' style="color:rgba(0,0,0,0.25)" />
+      </FormItem>
+      <FormItem>
+        <div class="login-form_rem">
+          <Checkbox v-decorator="['remember', {valuePropName: 'checked', initialValue: true}]">记住账号</Checkbox>
+          <router-link to=''>忘记密码</router-link>
+        </div>
+      <Button class="login-button" type="primary" html-type="submit" >登陆</Button>
+      </FormItem>
+    </Form>
   </div>
 </template>
 
 <script>
+import { Form, Button, Input, Icon, Checkbox, message } from 'ant-design-vue';
+// import LoadingComponent from '@/components/loading/index.vue'
 import Tools from '@/utils/Tools';
+
 export default {
-  name: 'HomeIndex',
+  name: 'Login',
+  components: {
+    Button,
+    Form,
+    FormItem: Form.Item,
+    Input,
+    Icon,
+    Checkbox,
+  },
   data() {
     return {
-      value: '',
-      value2: ''
+      form: this.$form.createForm(this),
     };
   },
+  computed: {
+    getWindowHeight: function() {
+      return document.documentElement.clientHeight + 'px';
+    },
+  },
   methods: {
-    type(e) {
-      console.log('typing', e, this.value);
-      this.value2 = Tools.formateNumber(this.value, ',');
-    }
+    handleSubmit (e) {
+      e.preventDefault();
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log('Received values of form: ', values);
+          const { username, password } = values;
+          if (username === 'test' && password === '123456') {
+            message.success('登陆成功', 1).then(() => {
+              const user = {id: 1, name: 'test'};
+              localStorage.setItem('user', JSON.stringify(user));
+              localStorage.setItem('token', Tools.randString(32));
+              this.$router.push('/admin/index');
+            });
+          } else{
+            message.error('账号密码不匹配').then(() => {
+            });
+          }
+        }
+      });
+    },
   }
 };
 </script>
 <style scoped>
-.s1 {
-  color: red;
-  font-size: 40px;
-}
+@import './index.css';
 </style>

@@ -1,7 +1,7 @@
 const state = {
     routes: [
         {
-            path: '/',
+            path: '/admin/index',
             breadcrumbName: '首页'
         },
     ]
@@ -13,21 +13,24 @@ const actions = {
     resetRoutes ({ commit }, route) {
         commit('resetRoutes', route);
     },
-    setRoutes ({ commit }, route) {
-        commit('setRoutes', route)
+    addRoutes ({ commit }, route) {
+        commit('addRoutes', route)
+    },
+    updateRoutes ({ commit }, payload) {
+        commit('updateRoutes', payload)
     },
 }
 
 const mutations = {
     resetRoutes (state, route) {
-        state.routes = [{
-            path: '/',
-            breadcrumbName: '首页'
-        },];
+        state.routes = [].concat(state.routes.shift());
         state.routes.push(route);
     },
-    setRoutes (state, route) {
+    addRoutes (state, route) {
         state.routes.push(route);
+    },
+    updateRoutes (state, {index, route}) {
+        state.routes[index] = route;
     },
 }
 

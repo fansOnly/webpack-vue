@@ -61,7 +61,7 @@ const menus = [
     key: 'setting',
     name: '基本设置',
     icon: 'setting',
-    url: '/admin/table/1',
+    url: '/admin/index',
   },
   {
     key: 'list',

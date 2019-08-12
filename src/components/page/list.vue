@@ -3,11 +3,19 @@
         <BreadCrumbComponent />
         <div class="container">
             <FilterBarComponent />
+            <div class="option-bar">
+                <Button style="margin-right:10px;" type='primary'><router-link to="/edit/">新增</router-link></Button>
+                <template v-if="selectedRowKeys.length">
+                    <Button style="margin-right:10px;" type="default" @click="delMultiItems">批量删除</Button>
+                    <div>当前共选择 <strong style="color:#1890ff;">{{selectedRowKeys.length}}</strong> 条信息</div>
+                </template>
+            </div>
             <TableComponent :dataSource="dataSource" :columns="columns" :pagination="pagination" :selectedRowKeys="selectedRowKeys" @checkItems="checkItems" @delItem="delItem" />
         </div>
     </div>
 </template>
 <script>
+import { Button, Modal } from 'ant-design-vue';
 import BreadCrumbComponent from '@/components/layouts/breadcrumb.vue';
 import TableComponent from '@/components/modes/table/index.vue';
 import FilterBarComponent from '@/components/modes/filterBar/index.vue';
@@ -17,7 +25,7 @@ import Tools from '@/utils/tools';
 const columns = [
     {
         title: '序号',
-        dataIndex: 'key',
+        dataIndex: 'sortnum',
         sorter: (a, b) => a.key - b.key,
         width: '80px',
     },
@@ -32,6 +40,13 @@ const columns = [
             text: '02',
             value: '02',
         }],
+        // filters: () => {
+        //     const arr = [];
+        //     titles.map(item => {
+        //         arr.push({text: item, value: item})
+        //     })
+        //     return arr;
+        // },
         onFilter: (value, record) => record.title.indexOf(value) != -1,
     },
     {
@@ -68,13 +83,20 @@ const columns = [
     }
 ];
 
+
+            console.log('columns', columns)
+
 let dataSource = [];
 // const statusArr = ['已下架', '待审核', '已审核', '已置顶'];
+const titles = ['title', 'desktop', 'news', 'somthing'];
 const TOTAL = 255;
 for (let i = 0; i < TOTAL; i++) {
     dataSource.push({
-        key: (i + 1) * 10,
-        title: `title-0${i}`,
+        key: i,
+        id: i + 1,
+        sortnum: (i + 1) * 10,
+        classid: 1,
+        title: `${titles[Tools.rand(0,3)]}-0${i}`,
         createTime: Tools.formatDate((parseInt(new Date().getTime()/1000) + Tools.rand(10, 1000)) * 1000, '-', ':'),
         // status: statusArr[Tools.rand(0, 3)],
         state: Tools.rand(0, 3),
@@ -88,6 +110,7 @@ export default {
         BreadCrumbComponent,
         TableComponent,
         FilterBarComponent,
+        Button,
     },
     data () {
         return {
@@ -107,6 +130,7 @@ export default {
     },
     mounted () {
         // console.log('router info:', this.$route);
+        // this.classid = this.$route.params.classid;
     },
     methods: {
         checkItems (selectedRowKeys) {
@@ -115,10 +139,30 @@ export default {
         },
         delItem (index) {
             this.dataSource.splice(index, 1);
-        }
+        },
+        delMultiItems () {
+            const that = this;
+            Modal.confirm({
+                title: '删除提醒',
+                content: '确认删除当前选中的信息吗？',
+                okType: 'danger',
+                onOk() {
+                    that.dataSource = that.dataSource.filter(item => !that.selectedRowKeys.includes(item.key));
+                    that.selectedRowKeys = [];
+                },
+                onCancel() {
+                    console.log('Cancel');
+                },
+            })
+        },
     }
 }
 </script>
 <style scoped>
+.option-bar {
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
 </style>
 

@@ -4,7 +4,7 @@
         <a slot="titlex" slot-scope="text" href="javascript:;">{{text}}</a>
         <span slot="statex" slot-scope="state"><Badge :status="['default', 'processing', 'success', 'error'][state]" :text="['已下架', '待审核', '已审核', '已置顶'][state]" /></span>
         <span slot="actionx" slot-scope="action, record, index">
-            <a href="javascript:;">{{action[0]}}</a>
+            <router-link :to="{name:'edit', params: {mode: 'list', classid: record.classid, id: record.id}}">{{action[0]}}</router-link>
             <Divider type="vertical" />
             <Popconfirm title='确认删除当前信息吗?' @confirm="() => delItem(index)">
                 <a href="javascript:;">{{action[1]}}</a>

@@ -38,3 +38,7 @@
 .user-opt:hover, .notice:hover, .language:hover {
     background: #f5f5f5;
 }
+
+.ant-back-top-icon {
+    background-size: 100%!important;
+}
