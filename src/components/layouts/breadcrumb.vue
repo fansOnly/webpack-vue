@@ -1,7 +1,7 @@
 <template>
     <div class="breadcrumb">
         <Breadcrumb :routes="routes">
-            <template slot="itemRender" slot-scope="{route, params, routes, paths}">
+            <template slot="itemRender" slot-scope="{route, params, routes}">
                 <span v-if="routes.indexOf(route) === routes.length - 1">
                     {{route.breadcrumbName}}
                 </span>

@@ -1,0 +1,11 @@
+.flex-form {
+    display: flex;
+}
+.flex-form .ant-form-item-label {
+    min-width: 120px;
+}
+
+.label-tip {
+    margin-left: 5px;
+    color: rgba(0,0,0,.35);
+}
