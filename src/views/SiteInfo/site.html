@@ -1,0 +1,56 @@
+<div>
+	<BreadCrumbComponent />
+	<div class="container">
+		<a-form :form="form" layout="vertical" @submit="handleSubmit">
+			<a-tabs type="card" @change="handleTabChange">
+				<a-tab-pane tab="基本设置" key="1">
+					<a-row :gutter="50">
+						<a-col :span="16">
+							<a-form-item label="站点名称">
+								<a-input v-decorator="['name',{rules: [{required: true, force: true}]}]" />
+							</a-form-item>
+							<a-form-item label="联系方式">
+								<a-input
+									v-decorator="['phone',{rules: [{required: true, pattern: /^1[3456789]\d{9}$/, message: '错误的手机号码', force: true}]}]">
+									<a-select slot="addonBefore" v-decorator="[ 'prefix', { initialValue: '86' }]"
+										style="width: 70px">
+										<a-select-option value="86">+86</a-select-option>
+										<a-select-option value="87">+87</a-select-option>
+									</a-select>
+								</a-input>
+							</a-form-item>
+							<a-form-item label="联系邮箱">
+								<a-input v-decorator="['email',{rules: [{type: 'email', message: '错误的邮箱格式'}]}]" />
+							</a-form-item>
+							<a-form-item label="站点备注">
+								<a-textarea v-decorator="['content']" :rows="4" />
+							</a-form-item>
+							<a-button type='primary' html-type='submit'>保存</a-button>
+						</a-col>
+					</a-row>
+				</a-tab-pane>
+				<a-tab-pane tab="高级设置" key="2">
+					<p>Content of Tab Pane 2</p>
+					<p>Content of Tab Pane 2</p>
+					<p>Content of Tab Pane 2</p>
+				</a-tab-pane>
+				<a-tab-pane tab="SEO设置" key="3">
+					<a-row :gutter="50">
+						<a-col :span="16">
+							<a-form-item label="SEO标题">
+								<a-textarea v-decorator="['seo_title']" :rows="2" />
+							</a-form-item>
+							<a-form-item label="SEO关键字">
+								<a-textarea v-decorator="['seo_keyword']" :rows="2" />
+							</a-form-item>
+							<a-form-item label="SEO描述">
+								<a-textarea v-decorator="['seo_desc']" :rows="4" />
+							</a-form-item>
+							<a-button type='primary' html-type='submit'>保存</a-button>
+						</a-col>
+					</a-row>
+				</a-tab-pane>
+			</a-tabs>
+		</a-form>
+	</div>
+</div>

@@ -1,3 +1,5 @@
+import { RESET_BREADCRUMB, ADD_BREADCRUMB, UPDATE_BREADCRUMB } from '../mutations'
+
 const state = {
     routes: [
         {
@@ -11,25 +13,25 @@ const getters = {}
 
 const actions = {
     resetRoutes ({ commit }, route) {
-        commit('resetRoutes', route);
+        commit('RESET_BREADCRUMB', route);
     },
     addRoutes ({ commit }, route) {
-        commit('addRoutes', route)
+        commit('ADD_BREADCRUMB', route)
     },
     updateRoutes ({ commit }, payload) {
-        commit('updateRoutes', payload)
+        commit('UPDATE_BREADCRUMB', payload)
     },
 }
 
 const mutations = {
-    resetRoutes (state, route) {
+    [RESET_BREADCRUMB] (state, route) {
         state.routes = [].concat(state.routes.shift());
         state.routes.push(route);
     },
-    addRoutes (state, route) {
+    [ADD_BREADCRUMB] (state, route) {
         state.routes.push(route);
     },
-    updateRoutes (state, {index, route}) {
+    [ UPDATE_BREADCRUMB] (state, {index, route}) {
         state.routes[index] = route;
     },
 }

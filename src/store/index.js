@@ -1,21 +1,23 @@
 /*eslint-env node*/
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from 'vue'
+import Vuex from 'vuex'
 
-import locale from './modules/locale';
-import setting from './modules/setting';
-import breadcrumb from './modules/breadcrumb';
+Vue.use(Vuex)
 
-import createLogger from '@/utils/logger'
+import localeStore from './modules/locale'
+import settingStore from './modules/setting'
+import breadcrumbStore from './modules/breadcrumb'
+import page from './modules/page'
 
-Vue.use(Vuex);
+import createLogger from '@/utils/storeLogger'
 
-const devMode = process.env.NODE_ENV !== 'production';
+const devMode = process.env.NODE_ENV !== 'production'
 
 const modules = {
-    locale,
-    setting,
-    breadcrumb,
+    localeStore,
+    settingStore,
+    breadcrumbStore,
+    page,
 }
 
 const store = new Vuex.Store({

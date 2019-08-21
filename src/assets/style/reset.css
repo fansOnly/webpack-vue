@@ -13,3 +13,41 @@ img {
     display: flex;
     align-items: center;
 }
+
+/* ant-design-reset */
+.ant-calendar-picker, .ant-input-number {
+    width: 100%!important;
+}
+
+.ant-form-item {
+    text-align: left;
+}
+
+.ant-form-explain {
+    text-align: left;
+}
+
+.label-tip {
+    margin-left: 5px;
+    color: rgba(0,0,0,.35);
+}
+
+.flex-form {
+    display: flex;
+}
+
+.flex-form .ant-form-item-label {
+    min-width: 120px;
+}
+
+/* 表单项上下结构布局 */
+.ant-form-item_style2 {
+    margin-bottom: 0!important;
+}
+
+.ant-form-item_style2 .ant-form-item-label {
+    float: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+}

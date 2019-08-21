@@ -1,3 +1,5 @@
+import { SWITCH_LOCAL } from '../mutations'
+
 import zh_CN from '../../../node_modules/ant-design-vue/lib/locale-provider/zh_CN';
 import zh_TW from '../../../node_modules/ant-design-vue/lib/locale-provider/zh_TW';
 import en_US from '../../../node_modules/ant-design-vue/lib/locale-provider/default';
@@ -15,13 +17,13 @@ const state = {
 const getters = {}
 
 const actions = {
-    setLocale ({ commit }, locale) {
-        commit('setLocale', locale)
+    switchLocale ({ commit }, payload) {
+        commit('SWITCH_LOCAL', payload.key)
     }
 }
 
 const mutations = {
-    setLocale (state, locale) {
+    [SWITCH_LOCAL] (state, locale) {
         state.locale = locale;
         locale === 'zh_CN' && (state.LAN = zh_CN, moment.locale('zh-cn'));
         locale === 'zh_TW' && (state.LAN = zh_TW, moment.locale('zh-tw'));

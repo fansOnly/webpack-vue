@@ -856,18 +856,4 @@ export default {
 	
 		return copy
 	},
-
-	/**
-	 * 获取url参数
-	 * @param {String}
-	 * @return {Obejct}
-	 */
-	etUrlParams(url, name){
-        const pattern = /(\w+)=(\w+)/ig;
-        let params = {};
-        url.replace(pattern, function(a, b, c) {
-            params[b] = c;
-        });
-        return name in params ? params[name] : params;
-    }
 }

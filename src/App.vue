@@ -1,12 +1,14 @@
 <template>
     <div id="app">
-		<LocaleProvider :locale="LAN">
-        	<router-view></router-view>
-		</LocaleProvider>
+		<a-locale-provider :locale="LAN">
+			<a-spin :spinning="spinning">
+				<a-back-top />
+        		<router-view></router-view>
+			</a-spin>	
+		</a-locale-provider>
     </div>
 </template>
 <script>
-import { LocaleProvider } from 'ant-design-vue';
 import { mapState } from 'vuex';
 
 // import moment from 'moment';
@@ -16,21 +18,22 @@ import { mapState } from 'vuex';
 
 export default {
 	name: 'App',
-	components: {
-		LocaleProvider,
-	},
 	data () {
 		return {
 			// zh_CN,
+			spinning: true
 		}
 	},
 	computed: {
 		...mapState({
-			LAN: state => state.locale.LAN,
+			LAN: state => state.localeStore.LAN,
 		})
 	},
 	created () {
 		// console.log('store', this.$store)
+	},
+	mounted () {
+		this.spinning = false;
 	}
 }
 </script>
@@ -39,7 +42,7 @@ export default {
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
-		text-align: center;
+		font-size: 14px;
 		color: #2c3e50;
 	}
 </style>

@@ -1,0 +1,78 @@
+<div class="body-wrap">
+	<BreadCrumbComponent />
+	<div class="container">
+		<!-- 筛选区域 -->
+		<a-form class="ant-advanced-search-form" :form="form" @submit.prevent="handleFilter">
+			<a-row :gutter="24">
+				<a-col :span="6">
+					<a-form-item label="文章标题">
+						<a-input v-decorator="['title', {rules: [{message: '请输入标题',}], initialValue: ''}]"
+							placeholder="请输入标题" />
+					</a-form-item>
+				</a-col>
+				<a-col :span="6">
+					<a-form-item label="发布人" >
+						<a-input v-decorator="['author', {rules: [{message: '请输入发布人',}], initialValue: ''}]"
+							placeholder="请输入发布人" />
+					</a-form-item>
+				</a-col>
+				<a-col :span="6">
+					<a-form-item label="发布日期" >
+						<a-date-picker v-decorator="['publishdate', {rules: [{type: 'object',message: '请选择发布日期',}]}]"
+							placeholder="请选择发布日期" style="width: 100%" />
+					</a-form-item>
+				</a-col>
+				<a-col :span="6">
+					<a-form-item label="请选择状态" >
+						<a-select v-decorator="['state', {rules: [{message: '请选择发布日期',}], initialValue: '全部'}]"
+							placeholder="请选择发布日期">
+							<a-select-option value="全部">全部</a-select-option>
+							<a-select-option value="已下架">已下架</a-select-option>
+							<a-select-option value="待审核">待审核</a-select-option>
+							<a-select-option value="已审核">已审核</a-select-option>
+							<a-select-option value="已置顶">已置顶</a-select-option>
+						</a-select>
+					</a-form-item>
+				</a-col>
+			</a-row>
+			<a-row>
+				<a-col :span="24" :style="{ textAlign: 'right' }">
+					<a-button type="primary" html-type="submit">搜索</a-button>
+					<a-button :style="{ marginLeft: '8px' }" @click="handleReset">重置</a-button>
+					<!-- <a v-if="filteritems.length > 4" :style="{ marginLeft: '8px', fontSize: '12px' }" @click="toggle">
+						{{expand ? '收起' : '展开'}}
+						<a-icon :type="expand ? 'up' : 'down'" />
+					</a> -->
+				</a-col>
+			</a-row>
+		</a-form>
+		<!-- 内容区域 -->
+		<div class="option-bar">
+			<!-- 内容操作区域 -->
+			<a-button style="margin-right:10px;" type="primary">
+				<router-link to="/admin/list/1/edit/5">新增</router-link>
+			</a-button>
+			<template v-if="selectedRowKeys.length">
+				<a-button style="margin-right:10px;" type="default" @click="delMultiItems">批量删除</a-button>
+				<div>
+					当前共选择
+					<strong style="color:#1890ff;">{{selectedRowKeys.length}}</strong> 条信息
+				</div>
+			</template>
+		</div>
+		<!-- 内容展示区域 -->
+		<!-- <TableComponent ref="dataListTable" :dataSource="dataSource" :columns="columns" :pagination="pagination"
+			:selectedRowKeys="selectedRowKeys" :actionList="listPageConfig.actionList" @checkItems="checkItems" @delItem="delItem" /> -->
+		<a-table ref="dataListTable" rowKey="id" :loading="loading" :columns="columns" :dataSource="dataSource" :pagination="pagination" @change="handleChange" :rowSelection="rowSelection" >
+			<a slot="titlex" slot-scope="text" href="javascript:;">{{text}}</a>
+			<span slot="statex" slot-scope="state"><a-badge :status="getStatus(state)" :text="state" /></span>
+			<span slot="actionx" slot-scope="action, record, index">
+				<router-link :to="{name:'listEditPage', params: {classid: record.classid, id: record.id}}">编辑</router-link>
+				<a-divider type="vertical" />
+				<a-popconfirm title='确认删除当前信息吗?' @confirm="() => delItem(index)">
+					<a href="javascript:;">删除</a>
+				</a-popconfirm>
+			</span>
+		</a-table>
+	</div>
+</div>

@@ -11,6 +11,7 @@
                 </router-link>
             </template>
         </Breadcrumb>
+        <a class="back" href="javascript: history.back(-1);">后退</a>
     </div>
 </template>
 <script>
@@ -41,7 +42,7 @@ export default {
     },
     computed: {
         ...mapState({
-            routes: state => state.breadcrumb.routes
+            routes: state => state.breadcrumbStore.routes
         },)
     },
 }
@@ -52,5 +53,8 @@ export default {
         background: #fff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 </style>
