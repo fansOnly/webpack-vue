@@ -778,17 +778,34 @@ export default {
 		* @param  {String} str
 		* @return {String}
 		*/
-	formatNumber (num, str=',') {
-		if (!this.isNumber(Number(num))) {
-			return;
+		// version 1.0
+	// formatNumber (num, str=',') {
+	// 	if (typeof num !== 'number' || num === 0 || isNaN(num)) {
+	// 		return;
+	// 	}
+	// 	return [...[...num.toString()].reduceRight((a, b) => {
+	// 		if ((a.length + 1) % 4 == 0 ) {
+	// 			b = str + b
+	// 		}
+	// 		return a + b
+	// 	}, '')].reverse().join('');
+	// },
+	// version 1.0
+	formatNumber (value, str=',') {
+		value += ''
+		const list = value.split('.')
+		const prefix = list[0].charAt(0) === '-' ? '-' : ''
+		let num = prefix ? list[0].slice(1) : list[0]
+		let result = ''
+		while (num.length > 3) {
+		  result = `${str}${num.slice(-3)}${result}`
+		  num = num.slice(0, num.length - 3)
 		}
-		return [...[...num.toString()].reduceRight((a, b) => {
-			if ((a.length + 1) % 4 == 0 ) {
-				b = str + b
-			}
-			return a + b
-		}, '')].reverse().join('');
-	},
+		if (num) {
+		  result = num + result
+		}
+		return `${prefix}${result}${list[1] ? `.${list[1]}` : ''}`
+	  },
 
 	/**
 		* 格式化数字 1234,4568,9
@@ -862,12 +879,49 @@ export default {
 	 * @param {String}
 	 * @return {Obejct}
 	 */
-	etUrlParams(url, name){
+	getUrlParams(url, name){
         const pattern = /(\w+)=(\w+)/ig;
         let params = {};
         url.replace(pattern, function(a, b, c) {
             params[b] = c;
         });
         return name in params ? params[name] : params;
-    }
+	},
+	
+	/**
+	 * 强制保留n位小数
+	 * @param {Number}
+	 * @param {Number}
+	 * @return {Number}
+	 */
+	numberToFixed (num, digit) {
+		const integer = num.toString().split('.')[0];
+		const decimal = num.toString().split('.')[1];
+		let dealedDecimal = '';
+		const fixZero = len => {
+			let i = 1;
+			let zero = '';
+			while (i <= len) {
+				zero += '0';
+				i++;
+			}
+			return zero;
+		}
+		if (typeof decimal !== 'undefined') {
+			if (decimal.length >= digit) {
+				dealedDecimal = decimal.substring(0, digit - 1);
+				let boundaryNumber = Number(decimal.split('')[digit - 1]);
+				const afterNumber = Number(decimal.split('')[digit]);
+				if (afterNumber >= 5) {
+					boundaryNumber += 1;
+				}
+				dealedDecimal = dealedDecimal + boundaryNumber;
+			} else {
+				dealedDecimal = decimal + fixZero(digit - decimal.length);
+			}
+		} else {
+			dealedDecimal = fixZero(digit);
+		}
+		return Number(`${integer}.${dealedDecimal}`);
+	}
 }

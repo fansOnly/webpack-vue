@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import Antd from 'ant-design-vue'
+import echarts from 'echarts'
 
 import App from './App.vue'
 
@@ -14,6 +15,7 @@ import './app.css'
 Vue.config.productionTip = false
 
 Vue.use(Antd)
+Vue.prototype.$echarts = echarts
 
 new Vue({
     router,

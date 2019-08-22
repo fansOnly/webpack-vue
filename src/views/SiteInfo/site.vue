@@ -22,13 +22,14 @@
         methods: {
             handleSubmit (e) {
                 e.preventDefault();
-                const FIELDS = [
-                    ['name', 'phone', 'email', 'content'],
-                    [],
-                    ['seo_title', 'seo_keyword', 'seo_desc']
-                ];
-                const fields = FIELDS[this.tabActiveKey-1];
-                this.form.validateFields(fields, (errors, values) => {
+                const allfFields = {
+                    base: ['name', 'phone', 'email', 'content'],
+                    advance: [],
+                    seo: ['seo_title', 'seo_keyword', 'seo_desc'],
+                    search: []
+                };
+                const currentFileds = allfFields[this.tabActiveKey];
+                this.form.validateFields(currentFileds, (errors, values) => {
                     if (!errors) {
                         console.log('Received values of form: ', values);
                     }
@@ -40,3 +41,8 @@
         },
 	};
 </script>
+<style scoped>
+    .ant-form-vertical .ant-btn {
+        margin-top: 0;
+    }
+</style>

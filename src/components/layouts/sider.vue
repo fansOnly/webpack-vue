@@ -88,30 +88,16 @@
 					path: '/admin/siteinfo/site'
 				},
 				{
+					key: 'siteinfo-banner',
+					name: '幻灯片管理',
+					icon: '',
+					path: '/admin/siteinfo/banner'
+				},
+				{
 					key: 'siteinfo-upload',
 					name: '上传设置',
 					icon: '',
 					path: '/admin/siteinfo/upload'
-				},
-			],
-		},
-		{
-			key: 'banner',
-			name: 'Banner管理',
-			icon: 'setting',
-			path: '',
-			subs: [
-				{
-					key: 'banner-index',
-					name: 'Banner列表',
-					icon: '',
-					path: '/admin/banner/index'
-				},
-				{
-					key: 'banner-class',
-					name: 'Banner分类',
-					icon: '',
-					path: '/admin/banner/class'
 				},
 			],
 		},

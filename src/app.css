@@ -7,6 +7,30 @@
     box-shadow: 0 0 8px rgba(0,0,0,0.02);
 }
 
+.box {
+    padding: 24px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.02);
+}
+
+.option-bar {
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.ant-advanced-search-form {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #fbfbfb;
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+}
+
+
+/* ************************************************************************************************************** */
+/* ************************************************************************************************************** */
 /* 垂直表单样式重置 */
 .ant-form-vertical .ant-form-item {
     margin-bottom: 0;
@@ -29,4 +53,12 @@
 .ant-advanced-search-form .ant-form-item-control-wrapper {
     flex: 1;
     width: 100%;
+}
+
+.ant-list-item .ant-comment-inner {
+    padding: 0;
+}
+
+.ant-card-head .ant-card-extra {
+    padding: 0;
 }

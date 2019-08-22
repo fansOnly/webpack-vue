@@ -128,18 +128,6 @@
 	};
 </script>
 <style scoped>
-	.option-bar {
-		padding-bottom: 15px;
-		display: flex;
-		align-items: center;
-	}
-
-	.ant-advanced-search-form {
-		margin-bottom: 15px;
-		padding: 15px;
-		background: #fbfbfb;
-		border: 1px solid #d9d9d9;
-		border-radius: 3px;
-	}
+	
 </style>
 

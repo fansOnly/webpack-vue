@@ -1,0 +1,207 @@
+<div class="welcome-wrapper">
+    <!-- 数据统计板块 -->
+    <a-row type="flex" :gutter="24">
+        <a-col :span="6">
+            <div class="echart-card">
+                <div class="echart-card_label flex">
+                    <div class="echart-card_title">总销售额</div>
+                    <a-tooltip title="总销售额">
+                        <a-icon type="info-circle" />
+                    </a-tooltip>
+                </div>
+                <div class="echart-card_total">¥ 126,560</div>
+                <div class="echart-card_data flex" style="align-items: flex-end;padding-bottom: 5px;">
+                    <div class="week-data flex">周同比<span class="number">12%</span>
+                        <a-icon type="caret-up" class="increase" />
+                    </div>
+                    <div class="day-data flex">日同比<span class="number">5%</span>
+                        <a-icon type="caret-down" class="increase" />
+                    </div>
+                </div>
+                <div class="echart-card_footer flex">日销售额<span class="number">￥12,423</span></div>
+            </div>
+        </a-col>
+        <a-col :span="6">
+            <div class="echart-card">
+                <div class="echart-card_label flex">
+                    <div class="echart-card_title">访问量</div>
+                    <a-tooltip title="访问量">
+                        <a-icon type="info-circle" />
+                    </a-tooltip>
+                </div>
+                <div class="echart-card_total">8888888</div>
+                <div id='visitEchart' class="echart-card_data"></div>
+                <div class="echart-card_footer flex">日访问量<span class="number">8888</span></div>
+            </div>
+        </a-col>
+        <a-col :span="6">
+            <div class="echart-card">
+                <div class="echart-card_label flex">
+                    <div class="echart-card_title">支付笔数</div>
+                    <a-tooltip title="支付笔数">
+                        <a-icon type="info-circle" />
+                    </a-tooltip>
+                </div>
+                <div class="echart-card_total">6,560</div>
+                <div id='payEchart' class="echart-card_data"></div>
+                <div class="echart-card_footer flex">转化率<span class="number">60%</span></div>
+            </div>
+        </a-col>
+        <a-col :span="6">
+            <div class="echart-card">
+                <div class="echart-card_label flex">
+                    <div class="echart-card_title">运营活动效果</div>
+                    <a-tooltip title="运营活动效果">
+                        <a-icon type="info-circle" />
+                    </a-tooltip>
+                </div>
+                <div class="echart-card_total">78%</div>
+                <div class="echart-card_data" style="padding-top: 20px;">
+                    <a-progress :percent="percent" status="active" :showInfo="false" strokeLinecap="square"
+                        strokeColor="rgb(19, 194, 194)" />
+                </div>
+                <div class="echart-card_footer flex">
+                    <div class="week-data flex">周同比<span class="number">12%</span>
+                        <a-icon type="caret-up" class="increase" />
+                    </div>
+                    <div class="day-data flex">日同比<span class="number">5%</span>
+                        <a-icon type="caret-down" class="increase" />
+                    </div>
+                </div>
+            </div>
+        </a-col>
+    </a-row>
+    <!-- 信息展示板块一 -->
+    <div style="margin-top: 24px;">
+        <a-row type="flex" :gutter="24">
+            <a-col :span="12">
+                <a-card title="热门搜索" :bordered="false">
+                    <div slot="extra">
+                        <a-icon type="ellipsis" />
+                    </div>
+                    <a-row type="flex" :gutter="16">
+                        <a-col :span="12">
+                            <div class="search-card">
+                                <div class="search-card_label flex">
+                                    <div class="search-card_title">搜索用户数</div>
+                                    <a-tooltip title="搜索用户数">
+                                        <a-icon type="info-circle" />
+                                    </a-tooltip>
+                                </div>
+                                <div class="search-card_total flex">
+                                    <div class="search-card_total_number">12,321</div>
+                                    <div class="search-card_total_yoy">
+                                        <span class="number">12.1</span>
+                                        <a-icon type="caret-up" class="increase" />
+                                    </div>
+                                </div>
+                                <div id="searchTotalEchart" class="search-card_echart"></div>
+                            </div>
+                        </a-col>
+                        <a-col :span="12">
+                                <div class="search-card">
+                                    <div class="search-card_label flex">
+                                        <div class="search-card_title">人均搜索次数</div>
+                                        <a-tooltip title="人均搜索次数">
+                                            <a-icon type="info-circle" />
+                                        </a-tooltip>
+                                    </div>
+                                    <div class="search-card_total flex">
+                                        <div class="search-card_total_number">2.7</div>
+                                        <div class="search-card_total_yoy">
+                                            <span class="number">26.2</span>
+                                            <a-icon type="caret-down" class="increase" />
+                                        </div>
+                                    </div>
+                                    <div id="searchPerEchart" class="search-card_echart"></div>
+                                </div>
+                            </a-col>
+                    </a-row>
+                    <div class="search-table">
+                        <a-table rowKey='id' :columns="columns" :dataSource="datax" :pagination="pagination" size="small">
+                            <template slot='title-link' slot-scope='text'>
+                                <a href="javascript:;">{{text}}</a>
+                            </template>
+                            <template slot='increase-status' slot-scope='text, record, index'>
+                                    <span>{{text}}%</span>
+                                    <a-icon :type="record.status" class="increase" />
+                                </template>
+                        </a-table>
+                    </div>
+                </a-card>
+            </a-col>
+            <a-col :span="12">
+                <a-card title="销售额类别占比" :bordered="false">
+                    <div slot="extra">
+                        <a-radio-group defaultValue="all" style="margin-right: 10px;" @change="switchSalesType">
+                            <a-radio-button value="all">全部</a-radio-button>
+                            <a-radio-button value="online">线上</a-radio-button>
+                            <a-radio-button value="offline">门店</a-radio-button>
+                        </a-radio-group>
+                        <!-- <a-icon type="ellipsis" /> -->
+                    </div>
+                    <div class="sales-title">销售额</div>
+                    <div class="sales-data_area flex">
+                        <div class="sales-data_echart">
+                            <div id='salesEchart' class="sales-data_echart_canvas"></div>
+                            <div class="sales-data_total">
+                                <div class="sales-data_total_label">销售额</div>
+                                <div class="sales-data_total_money">¥ {{totalSales}}</div>
+                            </div>
+                        </div>
+                        <div class="sales-data_list">
+                            <template v-for="item, index in salesCurrentDataSource">
+                                <div class="sales-data_list_item flex">
+                                    <div class="sales-data_list_item_dot" :style="{backgroundColor: item[3]}"></div>
+                                    <div class="sales-data_list_item_name">{{item[0]}}</div>
+                                    <a-divider type="vertical" />
+                                    <div class="sales-data_list_item_percent">{{item[2]}}</div>
+                                    <div class="sales-data_list_item_sales">¥ {{item[1]}}</div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </a-card>
+            </a-col>
+        </a-row>
+    </div>
+    <!-- 信息展示板块二 -->
+    <div style="margin-top: 24px;">
+        <a-row type="flex" :gutter="24">
+            <a-col :span="12">
+                <a-card title="最新留言" :bordered="false">
+                    <div slot="extra">
+                        <a-icon type="ellipsis" />
+                    </div>
+                    <a-list itemLayout="horizontal" :dataSource="comments">
+                        <a-list-item slot="renderItem" slot-scope="item, index">
+                            <a-comment :author="item.author" :avatar="item.avatar">
+                                <template slot="actions">
+                                    <span v-for="action in item.actions">{{action}}</span>
+                                </template>
+                                <p slot="content">{{item.content}}</p>
+                                <a-tooltip slot="datetime" :title="item.datetime.format('YYYY-MM-DD HH:mm:ss')">
+                                    <span>{{item.datetime.fromNow()}}</span>
+                                </a-tooltip>
+                            </a-comment>
+                        </a-list-item>
+                    </a-list>
+                </a-card>
+            </a-col>
+            <a-col :span="12">
+                <a-card title="热门新闻" :bordered="false">
+                    <div slot="extra">
+                        <a-icon type="ellipsis" />
+                    </div>
+                    <a-list itemLayout="horizontal" :dataSource="news">
+                        <a-list-item slot="renderItem" slot-scope="item, index">
+                            <a-list-item-meta description="">
+                                <a slot="title" href="javascript:;">{{item.title}}</a>
+                            </a-list-item-meta>
+                        </a-list-item>
+                    </a-list>
+                </a-card>
+            </a-col>
+        </a-row>
+    </div>
+</div>

@@ -6,9 +6,7 @@
 				<a-row>
 					<a-col :span="17">
 						<a-form-item label="序号" v-bind="formItemLayout">
-							<a-input-number v-decorator="[
-									'sortnum',
-								]" placeholder="请输入序号" />
+							<a-input-number v-decorator="['sortnum',]" placeholder="请输入序号" />
 						</a-form-item>
 						<a-form-item v-bind="formItemLayout">
 							<span slot="label">
@@ -18,22 +16,13 @@
 								</a-tooltip>
 							</span>
 							<a-input
-								v-decorator="[
-									'title',
-									{
-										rules: [{
-											required: true, message: '请输入标题！',
-										}]
-									}
-								]"
+								v-decorator="['title',{rules: [{required: true, message: '请输入标题！',}]}]"
 								placeholder="请输入标题"
 							/>
 						</a-form-item>
 						<a-form-item label="发布时间" v-bind="formItemLayout">
 							<a-date-picker
-								v-decorator="['createTime', {
-									rules: [{ type: 'object', required: true, message: '请选择发布时间' }],
-								}]"
+								v-decorator="['createTime', {rules: [{ type: 'object', required: true, message: '请选择发布时间' }],}]"
 								show-time
 								format="YYYY-MM-DD HH:mm:ss"
 								placeholder="请选择发布时间"
@@ -61,15 +50,11 @@
 							/>
 						</a-form-item>
 						<a-form-item label="内容" v-bind="formItemLayout">
-							<a-textarea v-decorator="[
-									'content'
-								]" placeholder="请输入内容" :rows="8" />
+							<a-textarea v-decorator="['content']" placeholder="请输入内容" :rows="8" />
 						</a-form-item>
 						<a-form-item v-bind="formItemLayout" label="附件">
 							<a-upload
-								v-decorator="['files', {
-									getValueFromEvent: fileUpload,
-								}]"
+								v-decorator="['files', {getValueFromEvent: fileUpload,}]"
 								name="files"
 								action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
 								list-type="text"
@@ -230,7 +215,8 @@
 						uid: '-1',
 						name: 'xxx.png',
 						status: 'done',
-						url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+						url:
+							'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
 					}
 				],
 				disableupload: false
