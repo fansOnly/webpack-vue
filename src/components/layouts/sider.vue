@@ -137,7 +137,7 @@
 					key: 'second1',
 					name: '二级分类',
 					icon: '',
-					path: '/admin/piclist'
+					path: ''
 				},
 				{
 					key: 'second2',
@@ -149,7 +149,7 @@
 							key: 'third1',
 							name: '三级分类',
 							icon: '',
-							path: '/admin/piclist'
+							path: ''
 						}
 					]
 				}

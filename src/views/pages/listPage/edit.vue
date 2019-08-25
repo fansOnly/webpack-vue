@@ -41,13 +41,7 @@
 							/>
 						</a-form-item>
 						<a-form-item label="简介" v-bind="formItemLayout">
-							<a-textarea
-								v-decorator="[
-									'intro'
-								]"
-								placeholder="请输入简介"
-								:autosize="{ minRows: 2, maxRows: 4 }"
-							/>
+							<a-textarea v-decorator="['intro']" placeholder="请输入简介" :autosize="{ minRows: 2, maxRows: 4 }" />
 						</a-form-item>
 						<a-form-item label="内容" v-bind="formItemLayout">
 							<a-textarea v-decorator="['content']" placeholder="请输入内容" :rows="8" />
@@ -92,10 +86,7 @@
 					<a-col :span="5" :offset="2">
 						<a-form-item v-bind="formItemLayout" label="缩略图" class="ant-form-item_style2">
 							<a-upload-dragger
-								v-decorator="['thumbnail', {
-									valuePropName: 'fileList',
-									getValueFromEvent: uploadThumbnail,
-								}]"
+								v-decorator="['thumbnail', {getValueFromEvent: uploadThumbnail,}]"
 								name="thumbnail"
 								action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
 								:disabled="disableupload"
@@ -109,11 +100,7 @@
 						</a-form-item>
 						<a-form-item v-bind="formItemLayout" label="状态" hasFeedback class="ant-form-item_style2">
 							<a-select
-								v-decorator="[
-								'state',
-								{rules: [{ required: true, message: '请设置状态', }],initialValue: '1'},
-								
-								]"
+								v-decorator="['state',{rules: [{ required: true, message: '请设置状态', }],initialValue: '1'},]"
 								allowClear
 								placeholder="请设置状态"
 							>
@@ -126,10 +113,7 @@
 
 						<a-form-item v-bind="formItemLayout" label="标签" hasFeedback class="ant-form-item_style2">
 							<a-select
-								v-decorator="[
-								'tags', {
-								rules: [{ required: false, message: '请选择商品标签', type: 'array' }],
-								}]"
+								v-decorator="['tags', {rules: [{ required: false, message: '请选择商品标签', type: 'array' }],}]"
 								mode="multiple"
 								allowClear
 								placeholder="请选择商品标签"
@@ -183,6 +167,7 @@
 </template>
 <script>
 	import BreadCrumbComponent from '@/components/layouts/breadcrumb.vue';
+	import { message } from 'ant-design-vue';
 	import moment from 'moment';
 
 	function hasErrors(fieldsError) {
@@ -215,8 +200,7 @@
 						uid: '-1',
 						name: 'xxx.png',
 						status: 'done',
-						url:
-							'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+						url:'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
 					}
 				],
 				disableupload: false
@@ -282,7 +266,9 @@
 				this.form.validateFields((err, values) => {
 					if (!err) {
 						console.log('Received values of form: ', values);
-						history.back();
+						message.success('', 1, () => {
+							history.back();
+						})
 					}
 				});
 			}

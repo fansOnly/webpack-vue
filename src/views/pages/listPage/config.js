@@ -3,6 +3,11 @@ import Tools from '@/utils/Tools'
 export default {
     columns: [
         {
+			title: 'ID',
+			dataIndex: 'id',
+			width: '120px'
+		},
+        {
 			title: '序号',
 			dataIndex: 'sortnum',
 			sorter: (a, b) => a.sortnum - b.sortnum,

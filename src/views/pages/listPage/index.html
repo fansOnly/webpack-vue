@@ -63,7 +63,7 @@
 		<!-- 内容展示区域 -->
 		<!-- <TableComponent ref="dataListTable" :dataSource="dataSource" :columns="columns" :pagination="pagination"
 			:selectedRowKeys="selectedRowKeys" :actionList="listPageConfig.actionList" @checkItems="checkItems" @delItem="delItem" /> -->
-		<a-table ref="dataListTable" rowKey="id" :loading="loading" :columns="columns" :dataSource="dataSource" :pagination="pagination" @change="handleChange" :rowSelection="rowSelection" >
+		<a-table ref="dataListTable" rowKey="id" bordered :loading="loading" :columns="columns" :dataSource="dataSource" :pagination="pagination" @change="handleChange" :rowSelection="rowSelection" >
 			<a slot="titlex" slot-scope="text" href="javascript:;">{{text}}</a>
 			<span slot="statex" slot-scope="state"><a-badge :status="getStatus(state)" :text="state" /></span>
 			<span slot="actionx" slot-scope="action, record, index">

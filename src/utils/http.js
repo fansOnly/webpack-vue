@@ -31,15 +31,13 @@ if (process.env.NODE_ENV == 'development') {
 }
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-// multipart/form-data
-axios.defaults.timeout = 2500;
+// axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+axios.defaults.timeout = 5000;
 
 // 添加请求拦截器
 axios.interceptors.request.use(config => {
-	// console.log('config', config);
-	// 在请求先展示加载框
-	// TODO...
-	const token = localStorage.getItem('token')
+	// TODO...AUTH_TOKEN
+	const token = localStorage.getItem('token');
 	if (token) {
 		config.headers['Authorization'] = token
 	}
@@ -51,19 +49,11 @@ axios.interceptors.request.use(config => {
 // 添加响应拦截器
 axios.interceptors.response.use(response => {
 	const responseCode = response.status;
-	// 在请求结束后关闭加载框
 	// TODO...
-	if (responseCode === 200) {
-		return Promise.resolve(response)
-	}
-	return Promise.reject(response)
-
-}, error => {
-	const responseCode = error.response.status;
 	switch (responseCode) {
-		// 401: 未登录
-		// 未登录则跳转登录页面，并携带当前页面的路径
-		// 在登录成功后返回当前页面，这一步需要在登录页操作。                
+		case 200:
+			break;
+		// 401: 未登录            
 		case 401:
 			router.replace({
 				path: '/login',
@@ -72,18 +62,8 @@ axios.interceptors.response.use(response => {
 				}
 			});
 			break;
-
 		// 403 token过期
-		// 登录过期对用户进行提示
-		// 清除本地token和清空vuex中token对象
-		// 跳转登录页面                
 		case 403:
-			// Toast({
-			// 	message: '登录过期，请重新登录',
-			// 	duration: 1000,
-			// 	forbidClick: true
-			// });
-			// 清除token
 			localStorage.removeItem('token');
 			// 跳转登录页面，并将要浏览的页面fullPath传过去，登录成功后跳转需要访问的页面 
 			setTimeout(() => {
@@ -96,45 +76,43 @@ axios.interceptors.response.use(response => {
 			}, 1000);
 			break;
 		case 404:
-			handle(responseCode);
+			handleStatus(responseCode);
 			break;
 		default:
-			handle(responseCode);
+			handleStatus(responseCode);
+			break;
 	}
+	return Promise.resolve(response);
 
+}, error => {
+	// console.log('error', error)
 	return Promise.reject(error);
 });
 
-function handle(status) {
+function handleStatus(status) {
 	throw new Error(codeMessage[status]);
 }
 
 export const get = (url, params) => {
-	return axios.get(url + '?' + qs.stringify(params))
+	if (typeof params !== 'undefined') {
+		url += '?' + qs.stringify(params)
+	}
+	return axios.get(url)
 		.then(res => {
 			return res.data;
 		})
 }
 
 export const post = (url, params, options = {}) => {
-	return axios.post({
-		url,
-		params,
-		...options
-	}).then(res => {
+	return axios.post(url, params, {...options})
+	.then(res => {
 		return res.data;
 	})
 }
 
-export const upload = ({url, params, options={}}) => {
-	return axios.post({
-		url,
-		params,
-		...options,
-		headers: {
-			'Content-Type': 'multipart/form-data'
-		}
-	}).then(res => {
+export const upload = ({url, params, options = {}}) => {
+	return axios.post(url, params, {...options, headers: {'Content-Type': 'multipart/form-data'}})
+	.then(res => {
 		return res.data;
 	})
 }
